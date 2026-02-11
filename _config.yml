@@ -1,6 +1,3 @@
 remote_theme: just-the-docs/just-the-docs
 title: Planejamento de Software
-description: Documentação do planejamento
-
-# Navegação na sidebar (cada item = um arquivo .md)
-nav_order: 1
+description: Documentação do planejamento do sistema de cotação de veículos

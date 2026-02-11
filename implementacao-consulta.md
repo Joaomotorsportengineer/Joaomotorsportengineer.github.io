@@ -26,6 +26,16 @@ A funcionalidade de consulta permite que **usuários não autenticados** realize
 
 ---
 
+## Componentes envolvidos
+
+- **Serviços:** CotacaoService (e/ou BatchService) para obter o preço médio.
+- **Repositórios:** CotacaoRepository, ConsultaRepository (e eventualmente BatchResultadosRepository).
+- **Tabelas:** [Cotacao](modelo-de-dados.md#cotacao), [Batch_Resultados](modelo-de-dados.md#batch_resultados), [Consulta](modelo-de-dados.md#consulta).
+
+Detalhes em [Modelo de componentes](modelo-de-componentes.md).
+
+---
+
 ## Objetivo técnico
 
 - Permitir **acesso público** às cotações (sem necessidade de login).

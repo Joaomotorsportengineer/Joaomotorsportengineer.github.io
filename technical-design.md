@@ -7,6 +7,8 @@ nav_order: 6
 
 A aplicação segue o padrão de **Arquitetura em Camadas** (Layered Architecture), separando responsabilidades entre interface, regras de negócio, persistência de dados e testes, facilitando manutenção, escalabilidade e testabilidade.
 
+Para a lista de serviços e repositórios por entidade, ver [Modelo de componentes](modelo-de-componentes.md). Para as tabelas e relacionamentos do banco, ver [Projeto do modelo de dados](modelo-de-dados.md).
+
 ### Tecnologias
 
 | Área | Tecnologia |

@@ -13,103 +13,103 @@ O fluxograma completo do modelo encontra-se documentado na [ferramenta Miro](htt
 | Campo        | Descrição |
 |--------------|-----------|
 | id_usuario   | PK        |
-| nome         |           |
-| email        |           |
-| senha_hash   |           |
+| nome         | Nome do usuário |
+| email        | E-mail (login) |
+| senha_hash   | Hash da senha |
 | papel        | Admin, Gerente, Coordenador, Pesquisador, Logista, Batch |
-| ativo        |           |
-| data_criacao |           |
+| ativo        | Indica se o usuário está ativo |
+| data_criacao | Data/hora de criação do registro |
 
 ## Regiao
 
 | Campo      | Descrição |
 |------------|-----------|
 | id_regiao  | PK        |
-| nome       |           |
+| nome       | Nome da região |
 
 ## Loja
 
 | Campo        | Descrição |
 |--------------|-----------|
 | id_loja      | PK        |
-| nome         |           |
-| cnpj         |           |
-| endereco     |           |
-| id_regiao    | FK        |
+| nome         | Nome da loja |
+| cnpj         | CNPJ da loja |
+| endereco     | Endereço |
+| id_regiao    | FK → Regiao |
 | status       | PENDENTE, APROVADA, REPROVADA |
-| data_cadastro|           |
+| data_cadastro| Data/hora do cadastro |
 
 ## Marca
 
 | Campo     | Descrição |
 |-----------|-----------|
 | id_marca  | PK        |
-| nome      |           |
+| nome      | Nome da marca |
 
 ## Modelo
 
 | Campo      | Descrição |
 |------------|-----------|
 | id_modelo  | PK        |
-| nome       |           |
-| id_marca   | FK        |
+| nome       | Nome do modelo |
+| id_marca   | FK → Marca |
 
 ## Pesquisa
 
 | Campo         | Descrição        |
 |---------------|------------------|
 | id_pesquisa   | PK               |
-| id_loja       | FK               |
+| id_loja       | FK → Loja        |
 | id_pesquisador| FK → Usuario     |
-| data_pesquisa |                  |
+| data_pesquisa | Data da pesquisa |
 
 ## Veículo pesquisado
 
 | Campo              | Descrição |
 |--------------------|-----------|
 | id_veiculo_pesquisado | PK    |
-| id_pesquisa        | FK        |
-| id_modelo          | FK        |
-| ano_modelo         |           |
-| ano_fabricacao     |           |
-| preco              |           |
-| opcionais          |           |
+| id_pesquisa        | FK → Pesquisa |
+| id_modelo          | FK → Modelo   |
+| ano_modelo         | Ano modelo do veículo |
+| ano_fabricacao     | Ano de fabricação |
+| preco              | Preço pesquisado |
+| opcionais          | Opcionais do veículo |
 
 ## Cotacao
 
 | Campo         | Descrição |
 |---------------|-----------|
 | id_cotacao    | PK        |
-| id_modelo     | FK        |
-| preco_medio   |           |
-| data_referencia |         |
+| id_modelo     | FK → Modelo |
+| preco_medio   | Preço médio calculado |
+| data_referencia | Mês/ano de referência |
 
 ## Consulta
 
 | Campo         | Descrição |
 |---------------|-----------|
 | id_consulta   | PK        |
-| id_modelo     | FK        |
-| filtros_usados|           |
-| data_consulta |           |
+| id_modelo     | FK → Modelo |
+| filtros_usados| Filtros utilizados na consulta (ex.: marca, ano, mês) |
+| data_consulta | Data/hora da consulta |
 
 ## Aprovacao
 
 | Campo          | Descrição     |
 |----------------|---------------|
 | id_aprovacao   | PK            |
-| id_loja        | FK            |
+| id_loja        | FK → Loja     |
 | id_coordenador | FK → Usuario  |
-| status         |               |
-| data_aprovacao |               |
-| observacao     |               |
+| status         | Status da aprovação (ex.: aprovada, reprovada) |
+| data_aprovacao | Data/hora da aprovação |
+| observacao     | Observação do coordenador |
 
 ## Batch_Resultados
 
 | Campo            | Descrição |
 |------------------|-----------|
 | id_batch         | PK        |
-| mes_ano          |           |
-| id_modelo        | FK        |
-| preco_medio      |           |
-| data_processamento |         |
+| mes_ano          | Mês/ano de referência (ex.: 2025-01) |
+| id_modelo        | FK → Modelo |
+| preco_medio      | Média mensal de preços |
+| data_processamento | Data/hora do processamento batch |
