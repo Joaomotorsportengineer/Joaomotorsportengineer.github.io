@@ -3,9 +3,22 @@ title: Modelo de componentes
 nav_order: 5
 ---
 
-O modelo de componentes descreve a organização técnica do sistema, apresentando a divisão da aplicação em componentes de software, suas responsabilidades e a forma como se comunicam. O objetivo é garantir modularidade, separação de responsabilidades, facilidade de manutenção e testabilidade.
+O modelo de componentes descreve a organização técnica do sistema, apresentando a divisão da aplicação em componentes de software, suas responsabilidades e a forma como se comunicam. O objetivo é garantir **modularidade**, **separação de responsabilidades**, **facilidade de manutenção** e **testabilidade**.
 
-O sistema foi projetado seguindo uma **arquitetura em camadas**, na qual cada componente possui uma função bem definida.
+O sistema foi projetado seguindo uma **arquitetura em camadas** (Layered Architecture), na qual cada componente possui uma função bem definida e se comunica apenas com as camadas adjacentes.
+
+---
+
+## Visão do fluxo entre camadas
+
+```
+[Interface Streamlit] → [Serviços] → [Repositórios] → [Banco de Dados]
+         ↑                    ↑              ↑
+    (usuário)          (regras de      (CRUD, SQL)
+                        negócio)
+```
+
+A **autenticação e autorização** atuam na entrada das requisições; o **processamento batch** e os **testes** são componentes transversais.
 
 ---
 
@@ -30,7 +43,7 @@ O sistema foi projetado seguindo uma **arquitetura em camadas**, na qual cada co
 **Responsabilidade:**
 
 - Gerenciar autenticação de usuários.
-- Controlar permissões de acesso com base no papel do usuário (Admin, Gerente, Coordenador, etc.).
+- Controlar permissões de acesso com base no papel do usuário (Admin, Gerente, Coordenador, Pesquisador, Logista, Batch).
 - Realizar validação de credenciais e hash de senha.
 
 **Benefício:**
@@ -46,15 +59,15 @@ Os serviços concentram toda a **lógica de negócio** do sistema, sendo respons
 
 **Principais serviços:**
 
-| Serviço | Função |
-|---------|--------|
-| UsuarioService | Gerenciamento de usuários e permissões. |
-| LojaService | Cadastro e aprovação de lojas. |
-| MarcaModeloService | Gerenciamento de marcas e modelos. |
-| PesquisaService | Registro das pesquisas realizadas pelos pesquisadores. |
-| CotacaoService | Cálculo e consulta de preços médios. |
-| AprovacaoService | Controle do processo de aprovação. |
-| BatchService | Processamento mensal para cálculo da média de preços. |
+| Serviço | Função | Entidades relacionadas (modelo de dados) |
+|---------|--------|------------------------------------------|
+| UsuarioService | Gerenciamento de usuários e permissões. | Usuario |
+| LojaService | Cadastro e aprovação de lojas. | Loja, Regiao |
+| MarcaModeloService | Gerenciamento de marcas e modelos. | Marca, Modelo |
+| PesquisaService | Registro das pesquisas realizadas pelos pesquisadores. | Pesquisa, Veículo pesquisado |
+| CotacaoService | Cálculo e consulta de preços médios. | Cotacao |
+| AprovacaoService | Controle do processo de aprovação de lojas. | Aprovacao |
+| BatchService | Processamento mensal para cálculo da média de preços. | Batch_Resultados |
 
 ---
 
@@ -66,15 +79,23 @@ Os serviços concentram toda a **lógica de negócio** do sistema, sendo respons
 - Executar operações de leitura e escrita (CRUD).
 - Garantir integridade e consistência dos dados.
 
-**Exemplos de repositórios:**
+**Repositórios (alinhados ao modelo de dados):**
 
-- UsuarioRepository
-- LojaRepository
-- ModeloRepository
-- CotacaoRepository
-- ConsultaRepository
+| Repositório | Tabela(s) / entidade(s) |
+|-------------|--------------------------|
+| UsuarioRepository | Usuario |
+| RegiaoRepository | Regiao |
+| LojaRepository | Loja |
+| MarcaRepository | Marca |
+| ModeloRepository | Modelo |
+| PesquisaRepository | Pesquisa |
+| VeiculoPesquisadoRepository | Veículo pesquisado |
+| CotacaoRepository | Cotacao |
+| ConsultaRepository | Consulta |
+| AprovacaoRepository | Aprovacao |
+| BatchResultadosRepository | Batch_Resultados |
 
-Esses componentes não possuem regras de negócio, apenas lógica de persistência.
+Esses componentes **não possuem regras de negócio**, apenas lógica de persistência.
 
 ---
 
@@ -86,6 +107,8 @@ Esses componentes não possuem regras de negócio, apenas lógica de persistênc
 - Garantir integridade referencial por meio de chaves primárias e estrangeiras.
 - Servir como base para consultas e processamento batch.
 
+As tabelas e relacionamentos estão descritos no [Projeto do modelo de dados](modelo-de-dados.md).
+
 ---
 
 ## Componente de Processamento Batch
@@ -93,8 +116,8 @@ Esses componentes não possuem regras de negócio, apenas lógica de persistênc
 **Responsabilidade:**
 
 - Executar periodicamente o cálculo da média mensal dos preços.
-- Processar grandes volumes de dados.
-- Persistir os resultados na tabela Batch_Resultados.
+- Processar grandes volumes de dados (a partir de Pesquisa / Veículo pesquisado e/ou Cotacao).
+- Persistir os resultados na tabela **Batch_Resultados** por meio do BatchResultadosRepository.
 
 ---
 
