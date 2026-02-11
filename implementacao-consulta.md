@@ -7,30 +7,36 @@ A funcionalidade de consulta permite que **usuários não autenticados** realize
 
 ---
 
+## Fonte dos dados na consulta
+
+Atualmente a consulta pública utiliza a **API externa da Tabela FIPE** ([Parallelum v2](https://deividfortuna.github.io/fipe/v2/)), com seleção de **mês/ano de referência**. O usuário escolhe a referência (mês/ano), o tipo de veículo (carros, motos, caminhões), marca, modelo e ano-modelo; o backend chama o **serviço de integração FIPE** e exibe o valor retornado.
+
+Quando houver banco próprio com dados internos, o backend poderá consultar **Cotacao** e/ou **Batch_Resultados** além da FIPE (ou em substituição), conforme a regra de negócio definida (ex.: “sempre FIPE”, “FIPE + média interna” ou “prioridade dados internos”).
+
+**Observação:** a API pública FIPE costuma retornar marcas e modelos apenas para **referências recentes** (ex.: últimos meses). Histórico maior pode exigir serviço pago (ex.: [fipe.online](https://fipe.online)).
+
+---
+
 ## Fluxo da funcionalidade
 
 1. O usuário acessa a interface desenvolvida em **Streamlit**.
-2. Seleciona os filtros desejados:
-   - Marca
-   - Modelo
-   - Ano-modelo
-   - Ano de fabricação
-   - Mês de referência
-3. O **frontend** envia os filtros selecionados para a camada de **backend**.
-4. O backend executa uma consulta SQL na tabela **Cotacao** e/ou **Batch_Resultados**, retornando o **preço médio** correspondente ao mês de referência.
-5. O resultado é exibido na interface para o usuário.
-6. **Em paralelo**, o sistema registra a consulta na tabela **Consulta**, armazenando:
-   - Modelo consultado
-   - Filtros utilizados
-   - Data e hora da consulta
+2. Seleciona, em ordem:
+   - **Mês/ano de referência**
+   - **Tipo** de veículo (carros, motos, caminhões)
+   - **Marca** → **Modelo** → **Ano modelo**
+3. Clica em **Pesquisar**.
+4. O **frontend** envia os filtros para o **backend**.
+5. O backend chama o **FipeService** (integração API FIPE) e/ou, no futuro, **CotacaoService** / **BatchService** (dados internos em Cotacao/Batch_Resultados).
+6. O **preço** (valor FIPE e/ou preço médio interno) é exibido na interface.
+7. **Em paralelo**, quando a persistência estiver implementada, o sistema registra a consulta na tabela **Consulta** (modelo consultado, filtros utilizados, data e hora).
 
 ---
 
 ## Componentes envolvidos
 
-- **Serviços:** CotacaoService (e/ou BatchService) para obter o preço médio.
-- **Repositórios:** CotacaoRepository, ConsultaRepository (e eventualmente BatchResultadosRepository).
-- **Tabelas:** [Cotacao](modelo-de-dados.md#cotacao), [Batch_Resultados](modelo-de-dados.md#batch_resultados), [Consulta](modelo-de-dados.md#consulta).
+- **Serviços:** **FipeService** (integração API FIPE — em uso); CotacaoService e/ou BatchService (dados internos, quando houver banco).
+- **Repositórios:** ConsultaRepository (para registrar a consulta quando a persistência estiver ativa); CotacaoRepository, BatchResultadosRepository (futuro).
+- **Tabelas:** [Consulta](modelo-de-dados.md#consulta) (registro da consulta); [Cotacao](modelo-de-dados.md#cotacao), [Batch_Resultados](modelo-de-dados.md#batch_resultados) (dados internos, futuro).
 
 Detalhes em [Modelo de componentes](modelo-de-componentes.md).
 

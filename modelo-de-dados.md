@@ -113,3 +113,9 @@ O fluxograma completo do modelo encontra-se documentado na [ferramenta Miro](htt
 | id_modelo        | FK → Modelo |
 | preco_medio      | Média mensal de preços |
 | data_processamento | Data/hora do processamento batch |
+
+---
+
+## Integração FIPE (opcional / futuro)
+
+Se no futuro o sistema armazenar **cache** de preços FIPE ou **referências** utilizadas, pode ser criada uma tabela dedicada (ex.: `fipe_referencia` ou `cache_fipe`) com campos como: referência (mês/ano ou código), tipo de veículo, marca, modelo, ano, valor, data da consulta. Enquanto a consulta usar apenas a API em tempo real e gravar somente na tabela **Consulta**, o modelo atual basta e não é obrigatório alterar o modelo de dados.

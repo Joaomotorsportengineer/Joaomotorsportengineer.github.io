@@ -64,8 +64,9 @@ Os serviços concentram toda a **lógica de negócio** do sistema, sendo respons
 | UsuarioService | Gerenciamento de usuários e permissões. | Usuario |
 | LojaService | Cadastro e aprovação de lojas. | Loja, Regiao |
 | MarcaModeloService | Gerenciamento de marcas e modelos. | Marca, Modelo |
+| **FipeService** | Integração com a API externa da Tabela FIPE (Parallelum): referências, marcas, modelos, anos e preço por referência; tratamento de erros e limites da API. Não aplica regras de negócio além da orquestração da chamada externa. | — (API externa) |
 | PesquisaService | Registro das pesquisas realizadas pelos pesquisadores. | Pesquisa, Veículo pesquisado |
-| CotacaoService | Cálculo e consulta de preços médios. | Cotacao |
+| CotacaoService | Cálculo e consulta de preços médios **internos** (tabelas Cotacao/Batch_Resultados). A consulta pública pode usar FipeService e/ou CotacaoService conforme a regra de negócio (ex.: sempre FIPE, ou FIPE + média interna). | Cotacao |
 | AprovacaoService | Controle do processo de aprovação de lojas. | Aprovacao |
 | BatchService | Processamento mensal para cálculo da média de preços. | Batch_Resultados |
 

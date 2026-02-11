@@ -15,6 +15,7 @@ Para a lista de serviços e repositórios por entidade, ver [Modelo de component
 |------|------------|
 | Frontend | Streamlit |
 | Backend | Python |
+| Integração API FIPE | HTTP, biblioteca **requests** ([API Parallelum FIPE v2](https://deividfortuna.github.io/fipe/v2/)) |
 | Banco de Dados | SQL |
 | Testes automatizados | Pytest |
 | Metodologia | Scrum (Jira) |
@@ -42,6 +43,7 @@ projeto-cotacao/
 ├── repos/                          # Camada de persistência (um arquivo por entidade ou agrupamento)
 │
 ├── services/                       # Camada de serviço (regras de negócio, orquestração)
+│   └── fipe_service.py             # Integração API FIPE (referências, marcas, modelos, preço)
 │
 ├── pages/                          # Interface Streamlit (uma página por "tela" ou papel)
 │
@@ -63,9 +65,15 @@ projeto-cotacao/
 | **auth/** | Autenticação e autorização (login, perfis, permissões). |
 | **domain/** | (Opcional) Modelos/entidades em memória. |
 | **repos/** | Camada de persistência; um arquivo por entidade ou agrupamento (DAO/Repository). |
-| **services/** | Camada de serviço; regras de negócio e orquestração. |
+| **services/** | Camada de serviço; regras de negócio e orquestração. Inclui `fipe_service.py` (cliente da API FIPE). |
 | **pages/** | Páginas Streamlit; uma página por tela ou papel. |
 | **ui/** | Componentes de interface reutilizáveis. |
 | **migrations/** | (Opcional) Scripts SQL de migração do banco. |
 | **scripts/** | Scripts auxiliares (seed, batch manual, etc.). |
 | **tests/** | Testes automatizados (pytest). |
+
+### Observação técnica – API FIPE
+
+- Uso da [API Parallelum FIPE v2](https://deividfortuna.github.io/fipe/v2/) (parâmetro de referência mês/ano).
+- A API pública tem **limite de uso**; marcas/modelos costumam estar disponíveis apenas para referências recentes.
+- Para histórico maior ou maior volume de consultas, pode ser necessário token ou serviço pago (ex.: [fipe.online](https://fipe.online)).
