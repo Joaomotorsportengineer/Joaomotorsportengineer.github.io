@@ -58,7 +58,7 @@ As telas abaixo ilustram o fluxo da consulta pública à Tabela FIPE, conforme p
 
 O usuário escolhe o mês/ano de referência da tabela FIPE. A interface exibe aviso sobre a limitação da API pública (referências recentes) e orienta a informar em seguida marca, modelo e ano modelo.
 
-![Seleção de mês/ano de referência](/assets/images/consulta-fipe-01-referencia.png)
+![Seleção de mês/ano de referência](/assets/images/Imagem 1.PNG)
 
 ### 2. Formulário de pesquisa
 
