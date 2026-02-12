@@ -47,3 +47,33 @@ Detalhes em [Modelo de componentes](modelo-de-componentes.md).
 - Permitir **acesso público** às cotações (sem necessidade de login).
 - Coletar **dados de uso** para análise estatística e tomada de decisão futura.
 - Garantir **desempenho** e **simplicidade** na experiência do usuário.
+
+---
+
+## Demonstração do aplicativo
+
+As telas abaixo ilustram o fluxo da consulta pública à Tabela FIPE, conforme planejado e implementado.
+
+### 1. Seleção da referência (mês/ano)
+
+O usuário escolhe o mês/ano de referência da tabela FIPE. A interface exibe aviso sobre a limitação da API pública (referências recentes) e orienta a informar em seguida marca, modelo e ano modelo.
+
+![Seleção de mês/ano de referência](/assets/images/consulta-fipe-01-referencia.png)
+
+### 2. Formulário de pesquisa
+
+Seleção do tipo de veículo (Carros, Motos, Caminhões), marca, modelo e ano modelo. O usuário pode digitar nos campos para buscar. Botão **PESQUISAR** dispara a consulta ao backend (FipeService).
+
+![Formulário: tipo, marca, modelo e ano modelo](/assets/images/consulta-fipe-02-formulario.png)
+
+### 3. Resultado da consulta
+
+Exibição do **Valor FIPE** retornado pela API. Opção de expandir "Ver todos os dados" (atributos e campos da resposta) e de **Baixar PDF da pesquisa**.
+
+![Resultado da consulta com valor FIPE e opção de PDF](/assets/images/consulta-fipe-03-resultado.png)
+
+### 4. Dados da pesquisa e resultado detalhado
+
+Visão que reúne os **dados da pesquisa** (referência, tipo, marca, modelo, ano modelo) e o **resultado da consulta** (valor FIPE e detalhes como CodigoFipe, combustível, mês de referência).
+
+![Dados da pesquisa e resultado detalhado](/assets/images/consulta-fipe-04-resultado-detalhes.png)
