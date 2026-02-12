@@ -58,22 +58,22 @@ As telas abaixo ilustram o fluxo da consulta pública à Tabela FIPE, conforme p
 
 O usuário escolhe o mês/ano de referência da tabela FIPE. A interface exibe aviso sobre a limitação da API pública (referências recentes) e orienta a informar em seguida marca, modelo e ano modelo.
 
-![Seleção de mês/ano de referência](/assets/images/Imagem 1.PNG)
+![Seleção de mês/ano de referência](/assets/images/Imagem1.PNG)
 
 ### 2. Formulário de pesquisa
 
 Seleção do tipo de veículo (Carros, Motos, Caminhões), marca, modelo e ano modelo. O usuário pode digitar nos campos para buscar. Botão **PESQUISAR** dispara a consulta ao backend (FipeService).
 
-![Formulário: tipo, marca, modelo e ano modelo](/assets/images/consulta-fipe-02-formulario.png)
+![Formulário: tipo, marca, modelo e ano modelo](/assets/images/Imagem2.PNG)
 
 ### 3. Resultado da consulta
 
 Exibição do **Valor FIPE** retornado pela API. Opção de expandir "Ver todos os dados" (atributos e campos da resposta) e de **Baixar PDF da pesquisa**.
 
-![Resultado da consulta com valor FIPE e opção de PDF](/assets/images/consulta-fipe-03-resultado.png)
+![Resultado da consulta com valor FIPE e opção de PDF](/assets/images/Imagem3.PNG)
 
 ### 4. Dados da pesquisa e resultado detalhado
 
 Visão que reúne os **dados da pesquisa** (referência, tipo, marca, modelo, ano modelo) e o **resultado da consulta** (valor FIPE e detalhes como CodigoFipe, combustível, mês de referência).
 
-![Dados da pesquisa e resultado detalhado](/assets/images/consulta-fipe-04-resultado-detalhes.png)
+![Dados da pesquisa e resultado detalhado](/assets/images/Imagem4.PNG)
